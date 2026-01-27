@@ -1,0 +1,16 @@
+ul.products{
+   display:grid;
+   grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+   gap:36px;
+}
+
+ul.products li.product{
+   background:transparent;
+   border:none;
+   box-shadow:none;
+}
+
+ul.products li.product:hover{
+   transform:none;   /* حذف conflict */
+   box-shadow:none;
+}

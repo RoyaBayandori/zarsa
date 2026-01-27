@@ -1,0 +1,30 @@
+.btn{
+   display:inline-block;
+   padding:14px 32px;
+   font-size:12px;
+   letter-spacing:0.12em;
+   text-transform:uppercase;
+   border-radius:6px;
+   font-weight:600;
+   transition:.35s;
+}
+.btn-primary{
+   background:var(--zarsa-gold);
+   color:#fff;
+   border:2px solid var(--zarsa-gold);
+}
+.btn-primary:hover{
+   background:var(--zarsa-gold-hover);
+   border-color:var(--zarsa-gold-hover);
+   box-shadow:var(--zarsa-shadow-soft);
+   transform:translateY(-2px);
+}
+.btn-outline{
+   background:transparent;
+   border:2px solid var(--zarsa-gold);
+   color:var(--zarsa-gold);
+}
+.btn-outline:hover{
+   background:var(--zarsa-gold);
+   color:#fff;
+}

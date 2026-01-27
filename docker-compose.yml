@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  wordpress:
+    image: wordpress:6.9-php8.2-apache
+    container_name: zarsa-wp
+    ports:
+      - "8000:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: zarsa
+      WORDPRESS_DB_USER: zarsa
+      WORDPRESS_DB_PASSWORD: zarsapass
+    volumes:
+      - ./wordpress:/var/www/html
+      - ./wp-content:/var/www/html/wp-content
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: zarsa-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pass
+      MYSQL_DATABASE: zarsa
+      MYSQL_USER: zarsa
+      MYSQL_PASSWORD: zarsapass
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    platform: linux/amd64
+    container_name: zarsa-phpmyadmin
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: rootpass
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+volumes:
+  db_data:

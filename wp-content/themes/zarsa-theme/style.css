@@ -1,0 +1,30 @@
+/*
+Theme Name: ZARSA Theme
+Theme URI: http://localhost
+Author: ZARSA
+Author URI: http://localhost
+Description: Custom WooCommerce Theme
+Version: 1.0
+Text Domain: zarsa-theme
+*/
+
+@import url('assets/css/tokens.css');
+@import url('assets/css/reset.css');
+@import url('assets/css/base.css');
+@import url('assets/css/layout.css');
+@import url('assets/css/components.css');
+@import url('assets/css/hero.css');
+@import url('assets/css/cards.css');
+@import url('assets/css/shop.css');
+@import url('assets/css/woo.css');
+@import url('assets/css/footer.css');
+@import url('assets/css/animations.css');
+@import url('assets/css/utilities.css');
+@import url('assets/css/responsive.css');
+@import url('assets/css/theme.css');
+@import url('assets/css/product/product-layout.css');
+@import url('assets/css/product/product-components.css');
+@import url('assets/css/product/product-gallery.css');
+@import url('assets/css/product/product-typography.css');
+@import url('assets/css/product/product-motion.css');
+
