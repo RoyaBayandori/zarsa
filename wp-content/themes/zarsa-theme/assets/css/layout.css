@@ -172,9 +172,22 @@ section{
   gap: var(--space-home-grid-editorial);
   align-items: center;
 }
-.philosophy-image img {
-  border-radius: 10px;
-  opacity: 0.95;
+.philosophy-image img,
+.featured-image img,
+.gifting-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--image-radius);
+  opacity: 0.98;
+}
+
+.featured-image,
+.gifting-image,
+.philosophy-image {
+  background: var(--image-mat);
+  border-radius: var(--image-radius);
+  overflow: hidden;
 }
 
 .philosophy h2 {

@@ -58,4 +58,12 @@
   --type-product-story-title: var(--type-section-title);
   --type-product-price: 0.9375rem;
   --weight-product-price: var(--weight-serif-medium, 500);
+  /* Imagery — shared object framing */
+  --image-radius: 12px;
+  --image-mat: var(--zarsa-cream-2);
+  --image-plate-padding: 28px;
+  --image-aspect-card: 4 / 5;
+  --image-aspect-card-mobile: 5 / 6;
+  --image-shadow-object: 0 4px 20px rgba(44, 40, 37, 0.04);
+  --image-shadow-hover: 0 8px 28px rgba(44, 40, 37, 0.06);
 }

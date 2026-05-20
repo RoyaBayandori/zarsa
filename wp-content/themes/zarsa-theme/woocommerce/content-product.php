@@ -12,30 +12,21 @@ if ( empty( $product ) || ! $product->is_visible() ) {
 
     <div class="zarsa-product-inner">
 
-        <!-- Image -->
         <div class="zarsa-product-image">
-            <a href="<?php the_permalink(); ?>">
+            <a href="<?php the_permalink(); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'View %s', 'zarsa-theme' ), get_the_title() ) ); ?>">
                 <?php
                 if ( has_post_thumbnail() ) {
                     echo get_the_post_thumbnail( $product->get_id(), 'full', [
-                        'class' => 'zarsa-thumb',
-                        'loading' => 'lazy'
-                    ]);
+                        'class'   => 'zarsa-thumb',
+                        'loading' => 'lazy',
+                    ] );
                 } else {
                     echo wc_placeholder_img( 'woocommerce_thumbnail' );
                 }
                 ?>
             </a>
-
-            <!-- Hover Actions -->
-            <div class="zarsa-hover-actions">
-                <a href="<?php the_permalink(); ?>" class="zarsa-view-btn">
-                    Discover
-                </a>
-            </div>
         </div>
 
-        <!-- Content -->
         <div class="zarsa-product-content">
 
             <h3 class="zarsa-product-title">
