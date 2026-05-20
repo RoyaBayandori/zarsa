@@ -1,8 +1,8 @@
 .product-gallery {
-  background: var(--image-mat);
-  padding: var(--image-plate-padding);
-  border: 1px solid var(--zarsa-border);
-  border-radius: var(--image-radius);
+  padding: 14px;
+  border: none;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 8px;
   max-width: 100%;
   overflow: hidden;
 }
@@ -16,15 +16,11 @@
   margin: 0 auto;
   object-fit: contain;
   object-position: center;
-  border-radius: calc(var(--image-radius) - 2px);
+  border-radius: 6px;
   box-shadow: none;
 }
 
 @media (max-width: 900px) {
-  .product-gallery {
-    padding: 20px;
-  }
-
   .product-gallery img,
   .product-gallery .product-main-image {
     max-height: min(65vh, 560px);
@@ -32,10 +28,6 @@
 }
 
 @media (max-width: 768px) {
-  .product-gallery {
-    padding: 14px;
-  }
-
   .product-gallery img,
   .product-gallery .product-main-image {
     max-height: min(52vh, 400px);

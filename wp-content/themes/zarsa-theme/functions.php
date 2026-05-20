@@ -91,37 +91,64 @@ function zarsa_home_field( $key ) {
 }
 
 /**
- * Primary menu: link Philosophy items to the homepage #philosophy section.
+ * Primary menu: link homepage editorial sections by page slug or /{slug} URL path.
+ *
+ * @return array<string, string> Page slug => homepage section id.
  */
-function zarsa_is_philosophy_nav_item( $item ) {
+function zarsa_home_section_menu_anchors() {
+    return array(
+        'philosophy'  => 'philosophy',
+        'collections' => 'collections',
+        'gifting'     => 'gifting',
+    );
+}
+
+/**
+ * @param object $item Nav menu item.
+ * @return string|null Section id when item targets a homepage anchor section.
+ */
+function zarsa_home_section_for_nav_item( $item ) {
+    $anchors = zarsa_home_section_menu_anchors();
+
     if ( 'post_type' === $item->type && 'page' === $item->object ) {
         $page = get_post( (int) $item->object_id );
-        if ( $page instanceof WP_Post && 'philosophy' === $page->post_name ) {
-            return true;
+        if ( $page instanceof WP_Post && isset( $anchors[ $page->post_name ] ) ) {
+            return $anchors[ $page->post_name ];
         }
     }
 
     $path = (string) wp_parse_url( $item->url, PHP_URL_PATH );
-    if ( '' !== $path && preg_match( '#/philosophy/?$#', untrailingslashit( $path ) ) ) {
-        return true;
+    if ( '' === $path ) {
+        return null;
     }
 
-    return false;
+    $path = untrailingslashit( $path );
+    foreach ( $anchors as $slug => $section_id ) {
+        if ( preg_match( '#/' . preg_quote( $slug, '#' ) . '/?$#', $path ) ) {
+            return $section_id;
+        }
+    }
+
+    return null;
 }
 
-function zarsa_philosophy_menu_anchor_url() {
-    return home_url( '/#philosophy' );
+/**
+ * @param string $section Homepage section element id.
+ */
+function zarsa_home_section_menu_anchor_url( $section ) {
+    return home_url( '/#' . $section );
 }
 
-add_filter( 'wp_nav_menu_objects', 'zarsa_philosophy_menu_anchor_link', 10, 2 );
-function zarsa_philosophy_menu_anchor_link( $items, $args ) {
+add_filter( 'wp_nav_menu_objects', 'zarsa_home_section_menu_anchor_link', 10, 2 );
+function zarsa_home_section_menu_anchor_link( $items, $args ) {
     if ( empty( $args->theme_location ) || 'primary' !== $args->theme_location ) {
         return $items;
     }
 
     foreach ( $items as $item ) {
-        if ( zarsa_is_philosophy_nav_item( $item ) ) {
-            $item->url = zarsa_philosophy_menu_anchor_url();
+        $section = zarsa_home_section_for_nav_item( $item );
+        if ( null !== $section ) {
+            $item->url = zarsa_home_section_menu_anchor_url( $section );
         }
     }
 
