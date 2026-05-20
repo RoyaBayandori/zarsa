@@ -1,6 +1,7 @@
 .product-gallery img {
   width: 100%;
   height: auto;
-  border-radius: 22px;
-  box-shadow: var(--zarsa-shadow-soft);
+  display: block;
+  border-radius: 18px;
+  box-shadow: var(--shadow-soft);
 }

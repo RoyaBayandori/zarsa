@@ -4,7 +4,7 @@
 
   <div class="product-value-inner">
 
-    <h2>Why This Piece</h2>
+    <h2 class="product-value-title"><?php esc_html_e( 'Why This Piece', 'zarsa-theme' ); ?></h2>
 
     <ul class="product-value-list">
 

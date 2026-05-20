@@ -1,0 +1,42 @@
+/* PDP typography — token-aligned; structure unchanged */
+
+.product-title {
+  font-family: "Playfair Display", serif;
+  font-size: var(--type-product-title);
+  letter-spacing: var(--tracking-display);
+  line-height: 1.25;
+  font-weight: var(--weight-serif-medium, 500);
+  color: var(--zarsa-dark);
+}
+
+.product-story-title,
+.product-value-title {
+  font-family: "Playfair Display", serif;
+  font-size: var(--type-product-story-title);
+  letter-spacing: var(--tracking-section);
+  text-transform: uppercase;
+  font-weight: var(--weight-serif-medium, 500);
+  color: var(--zarsa-dark);
+}
+
+.product-story-description,
+.product-story-body,
+.product-excerpt,
+.detail-text {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: var(--type-body-editorial);
+  line-height: var(--leading-editorial);
+  color: var(--zarsa-text-soft);
+}
+
+.product-story-body {
+  text-align: center;
+}
+
+.product-story-body p {
+  margin-bottom: 1em;
+}
+
+.product-story-body p:last-child {
+  margin-bottom: 0;
+}

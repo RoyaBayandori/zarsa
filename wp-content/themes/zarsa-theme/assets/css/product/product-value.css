@@ -1,35 +1,33 @@
 .product-value {
-  padding: 100px 0 120px;
-  background: var(--zarsa-cream);
+  padding: var(--space-pdp-section) 0 var(--space-pdp-section);
+  background: var(--zarsa-cream-2);
   text-align: center;
 }
 
 .product-value-inner {
   max-width: 520px;
   margin: 0 auto;
+  padding: 0 32px;
 }
 
 .product-value-title {
-  font-size: 26px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  margin-bottom: 40px;
-  color: var(--zarsa-dark);
+  margin-bottom: var(--space-sm);
 }
 
-.value-points {
+.product-value-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.value-points li {
-  font-size: 15px;
-  line-height: 1.8;
-  opacity: 0.78;
+.product-value-list li {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: var(--type-body-editorial);
+  line-height: var(--leading-editorial);
+  color: var(--zarsa-text-soft);
   margin-bottom: 14px;
 }
 
-.value-points li:last-child {
+.product-value-list li:last-child {
   margin-bottom: 0;
 }

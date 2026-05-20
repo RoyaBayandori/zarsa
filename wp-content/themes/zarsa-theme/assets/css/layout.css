@@ -3,6 +3,11 @@ section{
     padding-bottom:0;   /* مهم */
 }
 
+/* PDP: global section padding stacks with product partials */
+.product-page > section {
+  padding-top: 0;
+}
+
 .site-header {
   background: #fff;
   border-bottom: 1px solid var(--zarsa-border);

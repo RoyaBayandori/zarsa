@@ -48,4 +48,14 @@
   --type-logo-scrolled: 1.375rem;
   --type-nav: 0.8125rem;
   --tracking-logo: 0.18em;
+  /* PDP (scoped via .product-page) */
+  --space-pdp-hero-top: 48px;
+  --space-pdp-hero-bottom: var(--space-xl);
+  --space-pdp-section: var(--space-section);
+  --space-pdp-section-tight: var(--space-md);
+  --type-product-title: 2.625rem;
+  --type-product-title-sm: 2.125rem;
+  --type-product-story-title: var(--type-section-title);
+  --type-product-price: 0.9375rem;
+  --weight-product-price: var(--weight-serif-medium, 500);
 }
