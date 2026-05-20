@@ -2,6 +2,60 @@
     max-width:1400px;
 }
 
+/* Archive shell — main.shop exists only on archive-product.php */
+main.shop {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 32px 0;
+  box-sizing: border-box;
+}
+
+/* Editorial archive intro */
+main.shop .shop-intro {
+  max-width: 36rem;
+  margin: 0;
+  padding: 0 40px;
+  text-align: left;
+}
+
+main.shop .shop-intro-label {
+  display: block;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: var(--type-label, 0.6875rem);
+  letter-spacing: var(--tracking-label, 0.22em);
+  text-transform: uppercase;
+  font-weight: var(--weight-btn, 600);
+  color: var(--zarsa-text-soft);
+  opacity: 0.62;
+  margin: 0 0 14px;
+}
+
+main.shop .shop-intro-title {
+  font-family: "Playfair Display", serif;
+  font-size: 2rem;
+  letter-spacing: var(--tracking-display, 0.06em);
+  line-height: 1.25;
+  font-weight: var(--weight-serif-medium, 500);
+  color: var(--zarsa-dark);
+  margin: 0 0 18px;
+}
+
+main.shop .shop-intro-text {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: var(--type-body-editorial, 1.0625rem);
+  line-height: var(--leading-editorial, 1.9);
+  color: var(--zarsa-text-soft);
+  margin: 0;
+  max-width: 32rem;
+}
+
+main.shop .shop-empty {
+  padding: 0 40px;
+  margin-top: 48px;
+  font-size: var(--type-body-editorial, 1.0625rem);
+  color: var(--zarsa-text-soft);
+}
+
 /* Shop Grid */
 .woocommerce ul.products{
     display:grid;
@@ -24,6 +78,29 @@
   .woocommerce ul.products {
     gap: 40px 32px;
     margin-top: 64px;
+  }
+
+  main.shop {
+    padding: 32px 24px 0;
+  }
+
+  main.shop .shop-intro {
+    padding: 0 20px;
+  }
+
+  main.shop .shop-intro-title {
+    font-size: 1.75rem;
+    margin-bottom: 14px;
+  }
+
+  main.shop .shop-intro-text {
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .woocommerce-shop ul.products,
+  .post-type-archive-product ul.products {
+    margin-top: 36px;
   }
 }
 
@@ -60,4 +137,32 @@
 .post-type-archive-product main {
   margin-bottom: var(--space-footer-gap);
   padding-bottom: 100px;
+}
+
+/* Editorial gallery rhythm — shop/archive grid only */
+.woocommerce-shop ul.products,
+.post-type-archive-product ul.products {
+  gap: 72px 56px;
+  margin-top: 44px;
+}
+
+@media (max-width: 1200px) {
+  .woocommerce-shop ul.products,
+  .post-type-archive-product ul.products {
+    gap: 56px 44px;
+  }
+}
+
+@media (max-width: 768px) {
+  .woocommerce-shop ul.products,
+  .post-type-archive-product ul.products {
+    gap: 44px 36px;
+  }
+}
+
+@media (max-width: 680px) {
+  .woocommerce-shop ul.products,
+  .post-type-archive-product ul.products {
+    gap: 40px;
+  }
 }

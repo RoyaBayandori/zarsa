@@ -49,68 +49,85 @@
   margin-bottom: 16px;
 }
 
-.zarsa-product-card {
+/* Shop / archive product cards — scoped to WooCommerce listing pages only */
+.woocommerce-shop .zarsa-product-card,
+.post-type-archive-product .zarsa-product-card {
   list-style: none;
 }
 
-.zarsa-product-inner {
-  background: var(--zarsa-cream);
-  border-radius: var(--image-radius);
+.woocommerce-shop .zarsa-product-inner,
+.post-type-archive-product .zarsa-product-inner {
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 8px;
   overflow: hidden;
-  border: 1px solid var(--zarsa-border);
+  border: none;
   box-shadow: none;
-  transition: border-color 0.45s var(--ease-luxury), box-shadow 0.45s var(--ease-luxury);
 }
 
-.zarsa-product-inner:hover {
-  transform: none;
-  border-color: rgba(184, 134, 11, 0.22);
-  box-shadow: var(--image-shadow-hover);
+.woocommerce-shop .zarsa-product-inner:hover,
+.post-type-archive-product .zarsa-product-inner:hover {
+  border: none;
+  box-shadow: none;
 }
 
-.zarsa-product-image {
+.woocommerce-shop .zarsa-product-image,
+.post-type-archive-product .zarsa-product-image {
   position: relative;
   overflow: hidden;
-  background: var(--image-mat);
+  background: rgba(255, 255, 255, 0.18);
   aspect-ratio: var(--image-aspect-card);
 }
 
-.zarsa-product-image a {
+.woocommerce-shop .zarsa-product-image a,
+.post-type-archive-product .zarsa-product-image a {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-.zarsa-product-image img {
+.woocommerce-shop .zarsa-product-image img,
+.post-type-archive-product .zarsa-product-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
 }
 
-.zarsa-product-content {
-  padding: 26px 24px 32px;
+.woocommerce-shop .zarsa-product-content,
+.post-type-archive-product .zarsa-product-content {
+  padding: 30px 28px 36px;
   text-align: center;
 }
 
-.zarsa-product-title {
+.woocommerce-shop .zarsa-product-title,
+.post-type-archive-product .zarsa-product-title {
   font-size: 15px;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-weight: 600;
-  margin-bottom: 10px;
+  font-weight: 500;
+  margin-bottom: 14px;
 }
 
-.zarsa-product-price {
+.woocommerce-shop .zarsa-product-title a,
+.post-type-archive-product .zarsa-product-title a {
+  color: var(--zarsa-dark);
+}
+
+.woocommerce-shop .zarsa-product-price,
+.post-type-archive-product .zarsa-product-price {
   font-size: 13px;
-  letter-spacing: 0.28em;
-  color: var(--zarsa-gold);
-  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--zarsa-text-soft);
+  font-weight: 500;
+}
+
+.woocommerce-shop .zarsa-product-price .woocommerce-Price-amount,
+.post-type-archive-product .zarsa-product-price .woocommerce-Price-amount {
+  color: var(--zarsa-text-soft);
 }
 
 @media (max-width: 768px) {
-  .collection-image,
-  .zarsa-product-image {
+  .collection-image {
     aspect-ratio: var(--image-aspect-card-mobile);
   }
 
@@ -118,18 +135,26 @@
     padding: 22px 20px 26px;
   }
 
-  .zarsa-product-content {
-    padding: 22px 20px 26px;
+  .woocommerce-shop .zarsa-product-image,
+  .post-type-archive-product .zarsa-product-image {
+    aspect-ratio: var(--image-aspect-card-mobile);
   }
 
-  .zarsa-product-title {
+  .woocommerce-shop .zarsa-product-content,
+  .post-type-archive-product .zarsa-product-content {
+    padding: 24px 22px 28px;
+  }
+
+  .woocommerce-shop .zarsa-product-title,
+  .post-type-archive-product .zarsa-product-title {
     font-size: 0.875rem;
-    letter-spacing: var(--tracking-display, 0.06em);
+    letter-spacing: 0.06em;
   }
 
-  .zarsa-product-price {
+  .woocommerce-shop .zarsa-product-price,
+  .post-type-archive-product .zarsa-product-price {
     font-size: 0.75rem;
-    letter-spacing: var(--tracking-btn, 0.18em);
-    font-weight: var(--weight-btn, 600);
+    letter-spacing: 0.08em;
+    font-weight: 500;
   }
 }
