@@ -38,6 +38,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
+
+        document.addEventListener('click', (e) => {
+            if (!isMobileNav() || !nav.classList.contains('active')) {
+                return;
+            }
+            if (nav.contains(e.target) || toggle.contains(e.target)) {
+                return;
+            }
+            closeMenu();
+        });
     }
 
     if (header) {

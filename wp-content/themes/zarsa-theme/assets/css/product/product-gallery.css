@@ -3,6 +3,8 @@
   padding: var(--image-plate-padding);
   border: 1px solid var(--zarsa-border);
   border-radius: var(--image-radius);
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .product-gallery img,

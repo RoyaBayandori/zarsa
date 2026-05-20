@@ -1,24 +1,26 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-$story_text = get_field( 'story_text' );
+$content = get_post_field( 'post_content', get_the_ID() );
+
+if ( ! is_string( $content ) || '' === trim( $content ) ) {
+	if ( function_exists( 'get_field' ) ) {
+		$acf = get_field( 'story_text' );
+		if ( is_string( $acf ) && '' !== trim( $acf ) ) {
+			$content = $acf;
+		}
+	}
+}
+
+if ( ! is_string( $content ) || '' === trim( $content ) ) {
+	return;
+}
 ?>
 
 <section class="product-story">
-  <div class="product-story-inner">
-
-    <?php if ( $story_text ) : ?>
-    <div class="product-story-editorial">
-      <h2 class="product-story-title"><?php esc_html_e( 'Crafted with Purpose', 'zarsa-theme' ); ?></h2>
-      <div class="product-story-description">
-        <?php echo wpautop( wp_kses_post( $story_text ) ); ?>
-      </div>
-    </div>
-    <?php endif; ?>
-
-    <div class="product-story-body">
-      <?php the_content(); ?>
-    </div>
-
-  </div>
+	<div class="product-story-inner">
+		<div class="product-story-content">
+			<?php echo apply_filters( 'the_content', $content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		</div>
+	</div>
 </section>

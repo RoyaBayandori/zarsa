@@ -24,3 +24,7 @@
     © ZARSA — All Rights Reserved
   </div>
 </footer>
+
+<?php wp_footer(); ?>
+</body>
+</html>

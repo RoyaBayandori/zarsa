@@ -1,11 +1,20 @@
-.zarsa-footer{
+footer.zarsa-footer,
+footer.site-footer {
     background:#1f1c1a;
     color:#cfc6b8;
-    padding:80px 0 40px;
+    padding:48px 0 40px;
     font-family:inherit;
     margin-top:0;
     position:relative;
     z-index:2;
+}
+
+@media (max-width: 768px) {
+  footer.zarsa-footer,
+  footer.site-footer {
+    margin-top: 0;
+    padding-top: 32px;
+  }
 }
 
 .footer-inner{

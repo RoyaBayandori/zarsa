@@ -3,8 +3,8 @@ section{
     padding-bottom:0;   /* مهم */
 }
 
-/* PDP: global section padding stacks with product partials */
-.product-page > section {
+/* PDP: cancel global section top padding on hero only; story keeps its own padding-top */
+.product-page > .product-hero {
   padding-top: 0;
 }
 

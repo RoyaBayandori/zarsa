@@ -44,22 +44,20 @@
     margin-bottom:30px;
 }
 
-.woocommerce-page section{
-    margin-bottom:0 !important;
-    padding-bottom:0 !important;
+.woocommerce-shop section,
+.post-type-archive-product section {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.woocommerce-page {
+  position: relative;
+  z-index: 1;
+  background: var(--zarsa-cream);
 }
 
 .woocommerce-shop main,
-.post-type-archive-product main{
+.post-type-archive-product main {
   margin-bottom: var(--space-footer-gap);
-}
-
-.woocommerce-page{
-  position:relative;
-  z-index:1;
-  background:var(--zarsa-cream);
-}
-
-.woocommerce-page main{
-  padding-bottom:100px;
+  padding-bottom: 100px;
 }

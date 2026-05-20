@@ -50,9 +50,12 @@
   --tracking-logo: 0.18em;
   /* PDP (scoped via .product-page) */
   --space-pdp-hero-top: 48px;
-  --space-pdp-hero-bottom: var(--space-xl);
+  --space-pdp-hero-bottom: 56px;
+  --space-pdp-story-top: 24px;
   --space-pdp-section: var(--space-section);
   --space-pdp-section-tight: var(--space-md);
+  --space-pdp-story-figure: 4rem;
+  --space-pdp-story-paragraph: 1.65em;
   --type-product-title: 2.625rem;
   --type-product-title-sm: 2.125rem;
   --type-product-story-title: var(--type-section-title);
@@ -70,7 +73,9 @@
   --space-mobile-section: 64px;
   --space-mobile-section-loose: 72px;
   --space-pdp-hero-top-mobile: 32px;
-  --space-pdp-hero-bottom-mobile: 88px;
+  --space-pdp-hero-bottom-mobile: 40px;
+  --space-pdp-story-top-mobile: 16px;
+  --space-pdp-story-figure-mobile: 2.75rem;
   --space-pdp-section-mobile: 72px;
   --space-pdp-section-tight-mobile: 56px;
   --type-mobile-section-title: 1.875rem;

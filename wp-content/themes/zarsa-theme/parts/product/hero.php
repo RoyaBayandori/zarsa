@@ -1,48 +1,35 @@
 <?php
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
+
 global $product;
 ?>
 
 <section class="product-hero">
+	<div class="product-hero-inner">
 
-  <div class="product-hero-inner">
+		<div class="product-gallery">
+			<?php
+			if ( has_post_thumbnail() ) {
+				echo get_the_post_thumbnail(
+					$product->get_id(),
+					'full',
+					array( 'class' => 'product-main-image' )
+				);
+			}
+			?>
+		</div>
 
-    <!-- Gallery -->
-    <div class="product-gallery">
-      <?php
-        if ( has_post_thumbnail() ) {
-          echo get_the_post_thumbnail(
-            $product->get_id(),
-            'full',
-            ['class' => 'product-main-image']
-          );
-        }
-      ?>
-    </div>
+		<div class="product-identity">
+			<h1 class="product-title"><?php the_title(); ?></h1>
 
-    <!-- Identity -->
-    <div class="product-identity">
+			<div class="product-price">
+				<?php woocommerce_template_single_price(); ?>
+			</div>
 
-      <h1 class="product-title">
-        <?php the_title(); ?>
-      </h1>
+			<div class="product-cta">
+				<?php woocommerce_template_single_add_to_cart(); ?>
+			</div>
+		</div>
 
-      <div class="product-price">
-        <?php woocommerce_template_single_price(); ?>
-      </div>
-
-      <?php if ( has_excerpt() ) : ?>
-        <div class="product-excerpt">
-          <?php the_excerpt(); ?>
-        </div>
-      <?php endif; ?>
-
-      <div class="product-cta">
-        <?php woocommerce_template_single_add_to_cart(); ?>
-      </div>
-
-    </div>
-
-  </div>
-
+	</div>
 </section>

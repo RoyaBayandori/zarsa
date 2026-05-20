@@ -90,6 +90,44 @@ function zarsa_home_field( $key ) {
     return get_field( $key, $home_id );
 }
 
+/**
+ * Primary menu: link Philosophy items to the homepage #philosophy section.
+ */
+function zarsa_is_philosophy_nav_item( $item ) {
+    if ( 'post_type' === $item->type && 'page' === $item->object ) {
+        $page = get_post( (int) $item->object_id );
+        if ( $page instanceof WP_Post && 'philosophy' === $page->post_name ) {
+            return true;
+        }
+    }
+
+    $path = (string) wp_parse_url( $item->url, PHP_URL_PATH );
+    if ( '' !== $path && preg_match( '#/philosophy/?$#', untrailingslashit( $path ) ) ) {
+        return true;
+    }
+
+    return false;
+}
+
+function zarsa_philosophy_menu_anchor_url() {
+    return home_url( '/#philosophy' );
+}
+
+add_filter( 'wp_nav_menu_objects', 'zarsa_philosophy_menu_anchor_link', 10, 2 );
+function zarsa_philosophy_menu_anchor_link( $items, $args ) {
+    if ( empty( $args->theme_location ) || 'primary' !== $args->theme_location ) {
+        return $items;
+    }
+
+    foreach ( $items as $item ) {
+        if ( zarsa_is_philosophy_nav_item( $item ) ) {
+            $item->url = zarsa_philosophy_menu_anchor_url();
+        }
+    }
+
+    return $items;
+}
+
 add_filter(
     'acf/settings/save_json',
     static function () {
