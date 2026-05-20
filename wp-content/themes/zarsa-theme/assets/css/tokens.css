@@ -26,4 +26,21 @@
   --space-home-section-philosophy: 140px;
   --space-home-grid-editorial: var(--space-md);
   --space-home-grid-cards: var(--space-sm);
+  /* Typography (minimal scale) */
+  --type-hero-title: 2.25rem;
+  --type-section-title: 2.375rem;
+  --type-section-philosophy: 2.75rem;
+  --type-card-title: 1.125rem;
+  --type-body-editorial: 1.0625rem;
+  --type-label: 0.6875rem;
+  --type-btn: 0.75rem;
+  --leading-body: 1.65;
+  --leading-editorial: 1.9;
+  --tracking-tight: 0.03em;
+  --tracking-display: 0.06em;
+  --tracking-section: 0.08em;
+  --tracking-label: 0.22em;
+  --tracking-btn: 0.18em;
+  --weight-serif-medium: 500;
+  --weight-btn: 600;
 }

@@ -152,16 +152,64 @@ section{
 }
 
 .philosophy h2 {
-  font-size: 44px;
-  letter-spacing: 0.12em;
+  font-size: var(--type-section-philosophy, 2.75rem);
+  letter-spacing: var(--tracking-section, 0.08em);
   margin-bottom: 28px;
 }
 
 .philosophy p {
   max-width: 520px;
-  font-size: 17px;
-  line-height: 1.9;
+  font-size: var(--type-body-editorial, 1.0625rem);
+  line-height: var(--leading-editorial, 1.9);
   opacity: 0.85;
+}
+
+.collections-header h2,
+.gifting-content h2,
+.featured-content h2,
+.trust-title {
+  font-size: var(--type-section-title, 2.375rem);
+  letter-spacing: var(--tracking-section, 0.08em);
+  line-height: 1.2;
+  font-weight: var(--weight-serif-medium, 500);
+}
+
+.collections-header p,
+.gifting-content p,
+.featured-content p {
+  font-size: var(--type-body-editorial, 1.0625rem);
+  line-height: var(--leading-editorial, 1.9);
+  opacity: 0.85;
+}
+
+.featured-label {
+  display: block;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: var(--type-label, 0.6875rem);
+  letter-spacing: var(--tracking-label, 0.22em);
+  text-transform: uppercase;
+  color: var(--zarsa-text-soft);
+  margin-bottom: 16px;
+}
+
+.collection-content h3,
+.trust-item h3 {
+  font-size: var(--type-card-title, 1.125rem);
+  letter-spacing: var(--tracking-display, 0.06em);
+  font-weight: var(--weight-serif-medium, 500);
+  margin-bottom: 10px;
+}
+
+.collection-content p {
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  opacity: 0.82;
+}
+
+.trust-item p {
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  opacity: 0.82;
 }
 
 .philosophy::before {
@@ -209,7 +257,6 @@ section{
 }
 .trust-title {
   text-align: center;
-  font-size: 38px;
   margin-bottom: 64px;
 }
 .trust-grid {

@@ -1,11 +1,11 @@
 .btn{
    display:inline-block;
    padding:14px 32px;
-   font-size:12px;
-   letter-spacing:0.12em;
+   font-size:var(--type-btn, 0.75rem);
+   letter-spacing:var(--tracking-btn, 0.18em);
    text-transform:uppercase;
    border-radius:6px;
-   font-weight:600;
+   font-weight:var(--weight-btn, 600);
    transition:.35s;
 }
 .btn-primary{

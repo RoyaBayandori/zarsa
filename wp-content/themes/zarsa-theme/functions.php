@@ -13,9 +13,28 @@ function zarsa_theme_setup() {
 }
 add_action( 'after_setup_theme', 'zarsa_theme_setup' );
 
+/**
+ * Theme typography: Inter (body/UI) + Playfair Display (headings).
+ * Weights match existing CSS only — no new families or sizes.
+ */
+function zarsa_enqueue_fonts() {
+    wp_enqueue_style(
+        'zarsa-fonts',
+        'https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@500;700&display=swap',
+        array(),
+        null
+    );
+}
+add_action( 'wp_enqueue_scripts', 'zarsa_enqueue_fonts', 5 );
+
 // Enqueue style.css
 function zarsa_enqueue_styles() {
-    wp_enqueue_style( 'zarsa-style', get_stylesheet_uri(), array(), wp_get_theme()->get( 'Version' ) ?: '1.0' );
+    wp_enqueue_style(
+        'zarsa-style',
+        get_stylesheet_uri(),
+        array( 'zarsa-fonts' ),
+        wp_get_theme()->get( 'Version' ) ?: '1.0'
+    );
 }
 add_action( 'wp_enqueue_scripts', 'zarsa_enqueue_styles' );
 
