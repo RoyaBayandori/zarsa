@@ -20,12 +20,19 @@
     }
 }
 
-@media(max-width:680px){
-    .woocommerce ul.products{
-        grid-template-columns:1fr;
-        gap:48px;
-        padding:0 20px;
-    }
+@media (max-width: 768px) {
+  .woocommerce ul.products {
+    gap: 40px 32px;
+    margin-top: 64px;
+  }
+}
+
+@media (max-width: 680px) {
+  .woocommerce ul.products {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding: 0 20px;
+  }
 }
 
 /* Woo Cleanup */

@@ -66,4 +66,14 @@
   --image-aspect-card-mobile: 5 / 6;
   --image-shadow-object: 0 4px 20px rgba(44, 40, 37, 0.04);
   --image-shadow-hover: 0 8px 28px rgba(44, 40, 37, 0.06);
+  /* Mobile (overridden at ≤768px in responsive.css; desktop unchanged) */
+  --space-mobile-section: 64px;
+  --space-mobile-section-loose: 72px;
+  --space-pdp-hero-top-mobile: 32px;
+  --space-pdp-hero-bottom-mobile: 88px;
+  --space-pdp-section-mobile: 72px;
+  --space-pdp-section-tight-mobile: 56px;
+  --type-mobile-section-title: 1.875rem;
+  --type-mobile-product-title: 1.75rem;
+  --touch-min: 44px;
 }

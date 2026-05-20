@@ -40,3 +40,14 @@
 .product-story-body p:last-child {
   margin-bottom: 0;
 }
+
+@media (max-width: 768px) {
+  .product-title {
+    font-size: var(--type-mobile-product-title);
+  }
+
+  .product-story-title,
+  .product-value-title {
+    font-size: var(--type-mobile-section-title);
+  }
+}

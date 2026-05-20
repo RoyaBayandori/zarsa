@@ -113,4 +113,23 @@
   .zarsa-product-image {
     aspect-ratio: var(--image-aspect-card-mobile);
   }
+
+  .collection-content {
+    padding: 22px 20px 26px;
+  }
+
+  .zarsa-product-content {
+    padding: 22px 20px 26px;
+  }
+
+  .zarsa-product-title {
+    font-size: 0.875rem;
+    letter-spacing: var(--tracking-display, 0.06em);
+  }
+
+  .zarsa-product-price {
+    font-size: 0.75rem;
+    letter-spacing: var(--tracking-btn, 0.18em);
+    font-weight: var(--weight-btn, 600);
+  }
 }

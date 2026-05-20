@@ -100,3 +100,23 @@
   box-shadow: 0 0 0 2px rgba(184, 134, 11, 0.18);
   border-color: var(--zarsa-gold);
 }
+
+@media (max-width: 768px) {
+  .product-identity {
+    gap: 22px;
+  }
+
+  .product-cta .button,
+  .product-cta button[type="submit"] {
+    min-height: var(--touch-min, 44px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 36px;
+  }
+
+  .product-cta .quantity input.qty {
+    min-height: var(--touch-min, 44px);
+    width: 52px;
+  }
+}

@@ -121,6 +121,45 @@ section{
   user-select: none;
 }
 
+@media (max-width: 900px) {
+  .site-header {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+
+  .header-inner {
+    min-height: 76px;
+  }
+
+  .mobile-menu-toggle {
+    min-width: var(--touch-min, 44px);
+    min-height: var(--touch-min, 44px);
+    padding: 9px;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+  }
+
+  .header-cart-link {
+    min-width: var(--touch-min, 44px);
+    min-height: var(--touch-min, 44px);
+    margin: -6px -8px -6px 0;
+    padding: 12px 10px;
+    box-sizing: border-box;
+  }
+
+  .mobile-menu-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--touch-min, 44px);
+    min-height: var(--touch-min, 44px);
+    margin: -8px;
+    padding: 8px;
+    line-height: 1;
+    box-sizing: border-box;
+  }
+}
+
 .logo a:focus-visible,
 .main-nav .nav-menu li a:focus-visible,
 .header-cart a:focus-visible,
@@ -316,5 +355,5 @@ section{
 }
 
 .home-page {
-  margin-bottom: var(--space-lg);
+  margin-bottom: 0;
 }

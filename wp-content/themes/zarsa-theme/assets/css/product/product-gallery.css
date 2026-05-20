@@ -31,11 +31,18 @@
 
 @media (max-width: 768px) {
   .product-gallery {
-    padding: 16px;
+    padding: 14px;
   }
 
   .product-gallery img,
   .product-gallery .product-main-image {
-    max-height: min(58vh, 480px);
+    max-height: min(52vh, 400px);
+  }
+}
+
+@media (max-width: 680px) {
+  .product-gallery img,
+  .product-gallery .product-main-image {
+    max-height: min(48vh, 360px);
   }
 }

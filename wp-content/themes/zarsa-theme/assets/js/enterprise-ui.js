@@ -1,11 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const MOBILE_NAV_MAX = 900;
     const toggle = document.getElementById('mobileToggle');
     const nav = document.getElementById('mainNav');
     const closeBtn = document.getElementById('mobileClose');
     const header = document.getElementById('siteHeader');
 
-    if(toggle && nav){
+    const isMobileNav = () => window.innerWidth <= MOBILE_NAV_MAX;
 
+    const closeMenu = () => {
+        if (!toggle || !nav) {
+            return;
+        }
+        toggle.classList.remove('active');
+        nav.classList.remove('active');
+        document.body.classList.remove('menu-open');
+    };
+
+    if (toggle && nav) {
         toggle.addEventListener('click', (e) => {
             e.stopPropagation();
             toggle.classList.toggle('active');
@@ -13,33 +24,27 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.toggle('menu-open');
         });
 
-        if(closeBtn){
-            closeBtn.addEventListener('click', (e)=>{
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-
-                toggle.classList.remove('active');
-                nav.classList.remove('active');
-                document.body.classList.remove('menu-open');
+                closeMenu();
             });
         }
 
-        document.querySelectorAll('.nav-menu a').forEach(link=>{
-            link.addEventListener('click', ()=>{
-                if(window.innerWidth <= 900){
-                    toggle.classList.remove('active');
-                    nav.classList.remove('active');
-                    document.body.classList.remove('menu-open');
+        document.querySelectorAll('.nav-menu a').forEach((link) => {
+            link.addEventListener('click', () => {
+                if (isMobileNav()) {
+                    closeMenu();
                 }
             });
         });
     }
 
-    /* Header scroll effect */
-    if(header){
-        window.addEventListener('scroll', ()=>{
-            if(window.scrollY > 60){
+    if (header) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 60) {
                 header.classList.add('header-scrolled');
-            }else{
+            } else {
                 header.classList.remove('header-scrolled');
             }
         });
