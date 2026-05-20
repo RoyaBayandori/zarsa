@@ -127,7 +127,7 @@ section{
 
 .philosophy {
   position: relative;
-  padding: 140px 0;
+  padding: var(--space-home-section-philosophy) 0;
   background:
     linear-gradient(
       to bottom,
@@ -143,7 +143,7 @@ section{
 .philosophy-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  gap: var(--space-home-grid-editorial);
   align-items: center;
 }
 .philosophy-image img {
@@ -177,7 +177,7 @@ section{
 }
 
 .collections {
-  padding: 110px 0;
+  padding: var(--space-home-section) 0;
   background: #fff;
 }
 .collections-header {
@@ -188,22 +188,22 @@ section{
 .collections-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 48px;
+  gap: var(--space-home-grid-cards);
 }
 
 .gifting {
-  padding: 110px 0;
+  padding: var(--space-home-section) 0;
   background: var(--zarsa-cream-2);
 }
 .gifting-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  gap: var(--space-home-grid-editorial);
   align-items: center;
 }
 
 .trust-section {
-  padding: 110px 0;
+  padding: var(--space-home-section) 0;
   background: #fff;
   border-top: 1px solid var(--zarsa-border);
 }
@@ -215,20 +215,20 @@ section{
 .trust-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 48px;
+  gap: var(--space-home-grid-cards);
 }
 
 .featured-product {
-  padding: 130px 0;
+  padding: var(--space-home-section) 0;
   background: var(--zarsa-warm-white);
 }
 .featured-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 90px;
+  gap: var(--space-home-grid-editorial);
   align-items: center;
 }
 
 .home-page {
-   margin-bottom: 120;
+  margin-bottom: var(--space-lg);
 }

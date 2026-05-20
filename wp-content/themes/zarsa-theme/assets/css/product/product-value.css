@@ -1,0 +1,35 @@
+.product-value {
+  padding: 100px 0 120px;
+  background: var(--zarsa-cream);
+  text-align: center;
+}
+
+.product-value-inner {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.product-value-title {
+  font-size: 26px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  color: var(--zarsa-dark);
+}
+
+.value-points {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.value-points li {
+  font-size: 15px;
+  line-height: 1.8;
+  opacity: 0.78;
+  margin-bottom: 14px;
+}
+
+.value-points li:last-child {
+  margin-bottom: 0;
+}

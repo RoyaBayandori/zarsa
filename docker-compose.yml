@@ -1,44 +1,57 @@
 version: "3.9"
 
 services:
-  wordpress:
+  zarsa2-wordpress:
     image: wordpress:6.9-php8.2-apache
-    container_name: zarsa-wp
+    container_name: zarsa2-wp
     ports:
-      - "8000:80"
+      - "8001:80"   # پورت متفاوت
     environment:
-      WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_NAME: zarsa
-      WORDPRESS_DB_USER: zarsa
-      WORDPRESS_DB_PASSWORD: zarsapass
+      WORDPRESS_DB_HOST: zarsa2-db:3306
+      WORDPRESS_DB_NAME: zarsa2
+      WORDPRESS_DB_USER: zarsa2
+      WORDPRESS_DB_PASSWORD: zarsa2pass
+      WORDPRESS_CONFIG_EXTRA: | 
+       define('WP_HOME', 'http://localhost:8001');
+       define('WP_SITEURL', 'http://localhost:8001');
     volumes:
       - ./wordpress:/var/www/html
       - ./wp-content:/var/www/html/wp-content
     depends_on:
-      - db
+      - zarsa2-db
+    networks:
+      - zarsa2-network
 
-  db:
+  zarsa2-db:
     image: mysql:8.0
-    container_name: zarsa-db
+    container_name: zarsa2-db
     environment:
       MYSQL_ROOT_PASSWORD: root_pass
-      MYSQL_DATABASE: zarsa
-      MYSQL_USER: zarsa
-      MYSQL_PASSWORD: zarsapass
+      MYSQL_DATABASE: zarsa2
+      MYSQL_USER: zarsa2
+      MYSQL_PASSWORD: zarsa2pass
     volumes:
-      - db_data:/var/lib/mysql
+      - zarsa2_db_data:/var/lib/mysql
+    networks:
+      - zarsa2-network
 
-  phpmyadmin:
+  zarsa2-phpmyadmin:
     image: phpmyadmin/phpmyadmin
     platform: linux/amd64
-    container_name: zarsa-phpmyadmin
+    container_name: zarsa2-phpmyadmin
     environment:
-      PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: rootpass
+      PMA_HOST: zarsa2-db
+      MYSQL_ROOT_PASSWORD: root_pass
     ports:
-      - "8080:80"
+      - "8081:80"   # پورت متفاوت
     depends_on:
-      - db
+      - zarsa2-db
+    networks:
+      - zarsa2-network
 
 volumes:
-  db_data:
+  zarsa2_db_data:
+
+networks:
+  zarsa2-network:
+    driver: bridge

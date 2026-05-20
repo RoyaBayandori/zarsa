@@ -4,7 +4,7 @@ Theme URI: http://localhost
 Author: ZARSA
 Author URI: http://localhost
 Description: Custom WooCommerce Theme
-Version: 1.0
+Version: 1.0.2
 Text Domain: zarsa-theme
 */
 
@@ -27,4 +27,7 @@ Text Domain: zarsa-theme
 @import url('assets/css/product/product-gallery.css');
 @import url('assets/css/product/product-typography.css');
 @import url('assets/css/product/product-motion.css');
+/* @import url('assets/css/product/product-details.css'); */
+@import url('assets/css/product/product-value.css');
+@import url('assets/css/product/product-reviews.css');
 

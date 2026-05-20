@@ -21,4 +21,9 @@
   --space-xl: 160px;
   --space-section: 120px;
   --space-shop-footer: 140px;
+  /* Homepage editorial rhythm (localized; not site-wide) */
+  --space-home-section: var(--space-section);
+  --space-home-section-philosophy: 140px;
+  --space-home-grid-editorial: var(--space-md);
+  --space-home-grid-cards: var(--space-sm);
 }

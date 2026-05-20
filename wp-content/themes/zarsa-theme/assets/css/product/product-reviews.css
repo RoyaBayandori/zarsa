@@ -1,0 +1,50 @@
+.product-reviews {
+  max-width: 600px;
+  margin: 140px auto 0;
+  text-align: center;
+}
+
+.product-reviews h2 {
+  font-size: 24px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.product-reviews .no-reviews {
+  font-size: 15px;
+  line-height: 1.8;
+  opacity: 0.7;
+}
+
+.product-reviews summary {
+  cursor: pointer;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-top: 40px;
+}
+
+.product-reviews form {
+  margin-top: 40px;
+}
+
+.product-reviews {
+  max-width: 600px;
+  margin: 160px auto 0;
+  text-align: center;
+}
+
+.product-reviews summary {
+  cursor: pointer;
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-top: 40px;
+}
+
+.product-reviews form {
+  margin-top: 40px;
+}

@@ -17,7 +17,6 @@
     .woocommerce ul.products{
         grid-template-columns:repeat(2, 1fr);
         gap:48px 36px;
-        /* margin-bottom:140px; */
     }
 }
 
@@ -26,7 +25,6 @@
         grid-template-columns:1fr;
         gap:48px;
         padding:0 20px;
-        /* margin-bottom:120px; */
     }
 }
 
@@ -36,7 +34,7 @@
 }
 
 .woocommerce-products-header{
-    margin-bottom:40px;
+    margin-bottom:30px;
 }
 
 .woocommerce-page section{
@@ -49,40 +47,12 @@
   margin-bottom: var(--space-footer-gap);
 }
 
-
-.shop-page.container {
-  max-width: 1400px;
+.woocommerce-page{
+  position:relative;
+  z-index:1;
+  background:var(--zarsa-cream);
 }
 
-/* .woocommerce ul.products {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 60px 48px;
-  margin-bottom: 120px;
-  max-width: 1400px;
-  padding: 0 40px;
-} */
-
-.woocommerce-breadcrumb {
-  display: none !important;
-}
-
-.woocommerce-page {
-  position: relative;
-  z-index: 1;
-  background: var(--zarsa-cream);
-}
-
-.woocommerce-page main {
-  padding-bottom: 160px;
-}
-
-.woocommerce-breadcrumb {
-  margin: 20px 0 10px;
-  font-size: 13px;
-  opacity: 0.6;
-}
-
-.woocommerce-products-header {
-  margin-bottom: 30px;
+.woocommerce-page main{
+  padding-bottom:100px;
 }

@@ -1,39 +1,47 @@
 <?php
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
-$title = get_field('gifting_title');
-$text  = get_field('gifting_text');
-$image = get_field('gifting_image');
-$cta_t = get_field('gifting_cta_text');
-$cta_l = get_field('gifting_cta_link');
+$title = zarsa_home_field( 'gifting_title' );
+$text  = zarsa_home_field( 'gifting_text' );
+$image = zarsa_home_field( 'gifting_image' );
+$cta_t = zarsa_home_field( 'gifting_cta_text' );
+$cta_l = zarsa_home_field( 'gifting_cta_link' );
 
-if (!$title && !$text && !$image) return;
+$has_content = $title || $text || $image;
 ?>
 
-<section class="gifting section-cream" id="gifting">
-  <div class="container gifting-grid">
+<section class="gifting section-cream<?php echo $has_content ? '' : ' gifting--quiet'; ?>" id="gifting">
+  <div class="container">
 
-    <?php if ($image): ?>
-      <div class="gifting-image">
-        <img src="<?php echo esc_url($image['url']); ?>" alt="">
+    <?php if ( $has_content ) : ?>
+    <div class="gifting-grid">
+      <?php if ( $image && is_array( $image ) && ! empty( $image['url'] ) ) : ?>
+        <div class="gifting-image">
+          <img src="<?php echo esc_url( $image['url'] ); ?>" alt="">
+        </div>
+      <?php endif; ?>
+
+      <div class="gifting-content">
+        <?php if ( $title ) : ?>
+          <h2><?php echo esc_html( $title ); ?></h2>
+        <?php endif; ?>
+
+        <?php if ( $text ) : ?>
+          <p><?php echo nl2br( esc_html( $text ) ); ?></p>
+        <?php endif; ?>
+
+        <?php if ( $cta_t && is_array( $cta_l ) && ! empty( $cta_l['url'] ) ) : ?>
+          <a href="<?php echo esc_url( $cta_l['url'] ); ?>"
+             class="btn btn-outline"
+             target="<?php echo esc_attr( ! empty( $cta_l['target'] ) ? $cta_l['target'] : '_self' ); ?>">
+            <?php echo esc_html( $cta_t ); ?>
+          </a>
+        <?php endif; ?>
       </div>
-    <?php endif; ?>
-
-    <div class="gifting-content">
-      <?php if ($title): ?>
-        <h2><?php echo esc_html($title); ?></h2>
-      <?php endif; ?>
-
-      <?php if ($text): ?>
-        <p><?php echo nl2br(esc_html($text)); ?></p>
-      <?php endif; ?>
-
-      <?php if ($cta_t && $cta_l): ?>
-        <a href="<?php echo esc_url($cta_l); ?>" class="btn btn-outline">
-          <?php echo esc_html($cta_t); ?>
-        </a>
-      <?php endif; ?>
     </div>
+    <?php else : ?>
+    <div class="zarsa-home-section-quiet" aria-hidden="true"></div>
+    <?php endif; ?>
 
   </div>
 </section>

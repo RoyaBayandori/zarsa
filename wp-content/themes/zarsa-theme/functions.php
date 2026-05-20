@@ -26,19 +26,64 @@ add_filter('woocommerce_enqueue_styles', '__return_false'); // Remove default st
 remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20); // Remove breadcrumbs
 
 // ============================
-// ACF Options Page
+// Homepage CMS (ACF Free — dedicated Page, slug: home)
 // ============================
-if ( function_exists('acf_add_options_page') ) {
 
-    acf_add_options_page(array(
-        'page_title'  => 'Theme Settings',
-        'menu_title'  => 'Theme Settings',
-        'menu_slug'   => 'theme-settings',
-        'capability'  => 'edit_posts',
-        'redirect'    => false
-    ));
+/**
+ * Resolve the editorial homepage Page ID (slug: home).
+ *
+ * @return int Post ID, or 0 if the Home page does not exist.
+ */
+function zarsa_get_home_page_id() {
+    static $home_id = null;
 
+    if ( null !== $home_id ) {
+        return $home_id;
+    }
+
+    $home_id = 0;
+    $page    = get_page_by_path( 'home', OBJECT, 'page' );
+
+    if ( $page instanceof WP_Post && 'publish' === $page->post_status ) {
+        $home_id = (int) $page->ID;
+    }
+
+    return $home_id;
 }
+
+/**
+ * Homepage ACF field — always read from the Home page (slug: home).
+ * Register field groups with location: Page is equal to Home.
+ *
+ * @param string $key ACF field name.
+ * @return mixed|null
+ */
+function zarsa_home_field( $key ) {
+    if ( ! function_exists( 'get_field' ) ) {
+        return null;
+    }
+
+    $home_id = zarsa_get_home_page_id();
+    if ( ! $home_id ) {
+        return null;
+    }
+
+    return get_field( $key, $home_id );
+}
+
+add_filter(
+    'acf/settings/save_json',
+    static function () {
+        return trailingslashit( get_stylesheet_directory() ) . 'acf-json';
+    }
+);
+add_filter(
+    'acf/settings/load_json',
+    static function ( $paths ) {
+        $paths[] = trailingslashit( get_stylesheet_directory() ) . 'acf-json';
+        return $paths;
+    }
+);
 
 // Remove emojis
 remove_action('wp_head', 'print_emoji_detection_script', 7);
@@ -74,3 +119,22 @@ add_filter('woocommerce_price_format', function($format, $currency_pos) {
     }
     return $format;
 }, 10, 2);
+
+add_filter( 'woocommerce_product_tabs', 'zarsa_remove_description_tab', 98 );
+function zarsa_remove_description_tab( $tabs ) {
+    unset( $tabs['description'] );
+    return $tabs;
+}
+
+remove_action(
+  'woocommerce_single_product_summary',
+  'woocommerce_template_single_add_to_cart',
+  30
+);
+
+add_filter( 'woocommerce_product_tabs', function( $tabs ) {
+  unset( $tabs['reviews'] );
+  return $tabs;
+}, 98 );
+
+// Future: taxonomy/tier-driven collections and PDP layouts — keep data layer explicit (home page + product meta) before expanding here.
