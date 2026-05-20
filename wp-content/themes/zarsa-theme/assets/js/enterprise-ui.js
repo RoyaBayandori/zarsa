@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('ENTERPRISE UI LOADED');
-
     const toggle = document.getElementById('mobileToggle');
     const nav = document.getElementById('mainNav');
     const closeBtn = document.getElementById('mobileClose');
@@ -18,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if(closeBtn){
             closeBtn.addEventListener('click', (e)=>{
                 e.stopPropagation();
-                console.log('CLOSE CLICKED');
 
                 toggle.classList.remove('active');
                 nav.classList.remove('active');

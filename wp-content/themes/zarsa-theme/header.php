@@ -44,8 +44,11 @@ defined('ABSPATH') || exit;
 
         <!-- Cart -->
         <div class="header-cart">
-            <a href="<?php echo wc_get_cart_url(); ?>" aria-label="Cart">
-                🛒
+            <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="header-cart-link" aria-label="<?php esc_attr_e( 'Cart', 'zarsa-theme' ); ?>">
+                <svg class="header-cart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                    <path d="M8 9h8l-1.25 9.25H9.25L8 9z" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>
+                    <path d="M10 9V7.25a2 2 0 0 1 4 0V9" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>
+                </svg>
             </a>
         </div>
 

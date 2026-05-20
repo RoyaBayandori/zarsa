@@ -43,4 +43,9 @@
   --tracking-btn: 0.18em;
   --weight-serif-medium: 500;
   --weight-btn: 600;
+  /* Header */
+  --type-logo: 1.625rem;
+  --type-logo-scrolled: 1.375rem;
+  --type-nav: 0.8125rem;
+  --tracking-logo: 0.18em;
 }
