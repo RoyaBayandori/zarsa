@@ -44,6 +44,59 @@ add_action( 'wp_enqueue_scripts', 'zarsa_enqueue_styles' );
 add_filter('woocommerce_enqueue_styles', '__return_false'); // Remove default styles
 remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20); // Remove breadcrumbs
 
+/**
+ * Editorial product collections (maison identity — not product_cat commerce structure).
+ */
+function zarsa_register_collection_taxonomy() {
+    if ( ! post_type_exists( 'product' ) ) {
+        return;
+    }
+
+    $labels = array(
+        'name'                       => _x( 'Collections', 'taxonomy general name', 'zarsa-theme' ),
+        'singular_name'              => _x( 'Collection', 'taxonomy singular name', 'zarsa-theme' ),
+        'menu_name'                  => __( 'Collections', 'zarsa-theme' ),
+        'all_items'                  => __( 'All Collections', 'zarsa-theme' ),
+        'edit_item'                  => __( 'Edit Collection', 'zarsa-theme' ),
+        'view_item'                  => __( 'View Collection', 'zarsa-theme' ),
+        'update_item'                => __( 'Update Collection', 'zarsa-theme' ),
+        'add_new_item'               => __( 'Add New Collection', 'zarsa-theme' ),
+        'new_item_name'              => __( 'New Collection Name', 'zarsa-theme' ),
+        'parent_item'                => __( 'Parent Collection', 'zarsa-theme' ),
+        'parent_item_colon'          => __( 'Parent Collection:', 'zarsa-theme' ),
+        'search_items'               => __( 'Search Collections', 'zarsa-theme' ),
+        'popular_items'              => __( 'Popular Collections', 'zarsa-theme' ),
+        'separate_items_with_commas' => __( 'Separate collections with commas', 'zarsa-theme' ),
+        'add_or_remove_items'        => __( 'Add or remove collections', 'zarsa-theme' ),
+        'choose_from_most_used'      => __( 'Choose from the most used collections', 'zarsa-theme' ),
+        'not_found'                  => __( 'No collections found.', 'zarsa-theme' ),
+        'no_terms'                   => __( 'No collections', 'zarsa-theme' ),
+        'items_list_navigation'      => __( 'Collections list navigation', 'zarsa-theme' ),
+        'items_list'                 => __( 'Collections list', 'zarsa-theme' ),
+        'back_to_items'              => __( '&larr; Back to Collections', 'zarsa-theme' ),
+    );
+
+    register_taxonomy(
+        'collection',
+        'product',
+        array(
+            'labels'            => $labels,
+            'hierarchical'      => true,
+            'public'            => true,
+            'show_ui'           => true,
+            'show_admin_column' => true,
+            'show_in_rest'      => true,
+            'query_var'         => true,
+            'rewrite'           => array(
+                'slug'         => 'collection',
+                'with_front'   => false,
+                'hierarchical' => true,
+            ),
+        )
+    );
+}
+add_action( 'init', 'zarsa_register_collection_taxonomy', 10 );
+
 // ============================
 // Homepage CMS (ACF Free — dedicated Page, slug: home)
 // ============================
@@ -221,4 +274,4 @@ add_filter( 'woocommerce_product_tabs', function( $tabs ) {
   return $tabs;
 }, 98 );
 
-// Future: taxonomy/tier-driven collections and PDP layouts — keep data layer explicit (home page + product meta) before expanding here.
+// Future: collection-driven shop filtering and PDP layouts — data layer: collection taxonomy + product meta + home page.
