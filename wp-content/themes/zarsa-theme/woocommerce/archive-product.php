@@ -12,6 +12,8 @@ get_header();
 		<p class="shop-intro-text"><?php esc_html_e( 'A quiet selection of ceremonial saffron pieces, chosen for gifting, ritual, and intentional tables.', 'zarsa-theme' ); ?></p>
 	</header>
 
+	<?php get_template_part( 'parts/shop/filter-bar' ); ?>
+
 	<?php if ( have_posts() ) : ?>
 		<div class="products-grid">
 			<?php woocommerce_product_loop_start(); ?>

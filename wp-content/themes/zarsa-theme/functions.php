@@ -98,6 +98,147 @@ function zarsa_register_collection_taxonomy() {
 add_action( 'init', 'zarsa_register_collection_taxonomy', 10 );
 
 // ============================
+// Shop / collection archive filters (GET + WooCommerce native attributes)
+// ============================
+
+/**
+ * WooCommerce attribute filter query key (e.g. material → filter_material).
+ *
+ * @param string $attribute_name Attribute name without pa_ prefix.
+ */
+function zarsa_shop_filter_attribute_query_key( $attribute_name ) {
+	return 'filter_' . wc_sanitize_taxonomy_name( $attribute_name );
+}
+
+/**
+ * Active shop filter values from the current request.
+ *
+ * @return array<string, string>
+ */
+function zarsa_shop_filter_active_values() {
+	$active = array(
+		'collection'  => '',
+		'product_cat' => '',
+		'material'    => '',
+		'stone'       => '',
+	);
+
+	if ( is_tax( 'collection' ) ) {
+		$term = get_queried_object();
+		if ( $term instanceof WP_Term ) {
+			$active['collection'] = $term->slug;
+		}
+	} elseif ( isset( $_GET['collection'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$active['collection'] = sanitize_title( wp_unslash( $_GET['collection'] ) );
+	}
+
+	if ( isset( $_GET['product_cat'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$active['product_cat'] = sanitize_title( wp_unslash( $_GET['product_cat'] ) );
+	}
+
+	$material_key = zarsa_shop_filter_attribute_query_key( 'material' );
+	if ( isset( $_GET[ $material_key ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$active['material'] = sanitize_title( wp_unslash( $_GET[ $material_key ] ) );
+	}
+
+	$stone_key = zarsa_shop_filter_attribute_query_key( 'stone' );
+	if ( isset( $_GET[ $stone_key ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$active['stone'] = sanitize_title( wp_unslash( $_GET[ $stone_key ] ) );
+	}
+
+	return $active;
+}
+
+/**
+ * Hidden inputs preserving unrelated query vars when a filter changes.
+ *
+ * @param array<int, string> $exclude_keys Query keys controlled by the filter form.
+ */
+function zarsa_shop_filter_hidden_fields( $exclude_keys = array() ) {
+	$exclude = array_merge(
+		array(
+			'collection',
+			'product_cat',
+			zarsa_shop_filter_attribute_query_key( 'material' ),
+			zarsa_shop_filter_attribute_query_key( 'stone' ),
+			's',
+			'post_type',
+			'paged',
+		),
+		$exclude_keys
+	);
+
+	foreach ( $_GET as $key => $value ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( in_array( $key, $exclude, true ) || is_array( $value ) ) {
+			continue;
+		}
+
+		echo '<input type="hidden" name="' . esc_attr( $key ) . '" value="' . esc_attr( wc_clean( wp_unslash( $value ) ) ) . '">';
+	}
+}
+
+/**
+ * Apply collection + product_cat filters via WooCommerce product query.
+ *
+ * @param array $tax_query Tax query clauses.
+ * @return array
+ */
+function zarsa_shop_archive_filter_tax_query( $tax_query ) {
+	if ( ! ( is_shop() || is_tax( 'collection' ) ) ) {
+		return $tax_query;
+	}
+
+	if ( ! is_array( $tax_query ) ) {
+		$tax_query = array();
+	}
+
+	if ( is_shop() && ! empty( $_GET['collection'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$slug = sanitize_title( wp_unslash( $_GET['collection'] ) );
+		$term = get_term_by( 'slug', $slug, 'collection' );
+		if ( $term && ! is_wp_error( $term ) ) {
+			$tax_query[] = array(
+				'taxonomy' => 'collection',
+				'field'    => 'slug',
+				'terms'    => array( $slug ),
+			);
+		}
+	}
+
+	if ( ! empty( $_GET['product_cat'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$slug = sanitize_title( wp_unslash( $_GET['product_cat'] ) );
+		$term = get_term_by( 'slug', $slug, 'product_cat' );
+		if ( $term && ! is_wp_error( $term ) ) {
+			$tax_query[] = array(
+				'taxonomy' => 'product_cat',
+				'field'    => 'slug',
+				'terms'    => array( $slug ),
+			);
+		}
+	}
+
+	return $tax_query;
+}
+add_filter( 'woocommerce_product_query_tax_query', 'zarsa_shop_archive_filter_tax_query', 20 );
+
+/**
+ * Shop / collection archive filter bar script.
+ */
+function zarsa_enqueue_shop_filters() {
+	if ( ! function_exists( 'is_shop' ) || ! ( is_shop() || is_tax( 'collection' ) ) ) {
+		return;
+	}
+
+	wp_enqueue_script(
+		'zarsa-shop-filters',
+		get_template_directory_uri() . '/assets/js/shop-filters.js',
+		array(),
+		wp_get_theme()->get( 'Version' ) ?: '1.0',
+		true
+	);
+}
+add_action( 'wp_enqueue_scripts', 'zarsa_enqueue_shop_filters' );
+
+// ============================
 // Homepage CMS (ACF Free — dedicated Page, slug: home)
 // ============================
 

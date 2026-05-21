@@ -20,6 +20,8 @@ $term = get_queried_object();
 		<?php endif; ?>
 	</header>
 
+	<?php get_template_part( 'parts/shop/filter-bar' ); ?>
+
 	<?php if ( have_posts() ) : ?>
 		<div class="products-grid">
 			<?php woocommerce_product_loop_start(); ?>
