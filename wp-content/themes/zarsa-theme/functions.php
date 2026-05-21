@@ -111,6 +111,62 @@ function zarsa_shop_filter_attribute_query_key( $attribute_name ) {
 }
 
 /**
+ * Query keys used for non-collection shop filters (GET only).
+ *
+ * @return array<int, string>
+ */
+function zarsa_shop_filter_query_keys() {
+	return array(
+		'product_cat',
+		zarsa_shop_filter_attribute_query_key( 'material' ),
+		zarsa_shop_filter_attribute_query_key( 'stone' ),
+	);
+}
+
+/**
+ * Non-empty filter params from the current request (excludes collection).
+ *
+ * @return array<string, string>
+ */
+function zarsa_shop_filter_request_params() {
+	$params = array();
+
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	if ( ! empty( $_GET['product_cat'] ) ) {
+		$params['product_cat'] = sanitize_title( wp_unslash( $_GET['product_cat'] ) );
+	}
+
+	$material_key = zarsa_shop_filter_attribute_query_key( 'material' );
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	if ( ! empty( $_GET[ $material_key ] ) ) {
+		$params[ $material_key ] = sanitize_title( wp_unslash( $_GET[ $material_key ] ) );
+	}
+
+	$stone_key = zarsa_shop_filter_attribute_query_key( 'stone' );
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	if ( ! empty( $_GET[ $stone_key ] ) ) {
+		$params[ $stone_key ] = sanitize_title( wp_unslash( $_GET[ $stone_key ] ) );
+	}
+
+	return $params;
+}
+
+/**
+ * Build a URL with only non-empty filter query args.
+ *
+ * @param string               $base_url Base URL (path).
+ * @param array<string,string> $params   Filter params.
+ */
+function zarsa_shop_filter_build_url( $base_url, $params = array() ) {
+	$params = array_filter( $params );
+	if ( empty( $params ) ) {
+		return $base_url;
+	}
+
+	return add_query_arg( $params, $base_url );
+}
+
+/**
  * Active shop filter values from the current request.
  *
  * @return array<string, string>
@@ -128,23 +184,16 @@ function zarsa_shop_filter_active_values() {
 		if ( $term instanceof WP_Term ) {
 			$active['collection'] = $term->slug;
 		}
-	} elseif ( isset( $_GET['collection'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$active['collection'] = sanitize_title( wp_unslash( $_GET['collection'] ) );
 	}
 
-	if ( isset( $_GET['product_cat'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$active['product_cat'] = sanitize_title( wp_unslash( $_GET['product_cat'] ) );
-	}
+	$request = zarsa_shop_filter_request_params();
+	$active['product_cat'] = $request['product_cat'] ?? '';
 
 	$material_key = zarsa_shop_filter_attribute_query_key( 'material' );
-	if ( isset( $_GET[ $material_key ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$active['material'] = sanitize_title( wp_unslash( $_GET[ $material_key ] ) );
-	}
+	$active['material'] = $request[ $material_key ] ?? '';
 
 	$stone_key = zarsa_shop_filter_attribute_query_key( 'stone' );
-	if ( isset( $_GET[ $stone_key ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$active['stone'] = sanitize_title( wp_unslash( $_GET[ $stone_key ] ) );
-	}
+	$active['stone'] = $request[ $stone_key ] ?? '';
 
 	return $active;
 }
@@ -173,12 +222,16 @@ function zarsa_shop_filter_hidden_fields( $exclude_keys = array() ) {
 			continue;
 		}
 
+		if ( is_string( $value ) && '' === $value ) {
+			continue;
+		}
+
 		echo '<input type="hidden" name="' . esc_attr( $key ) . '" value="' . esc_attr( wc_clean( wp_unslash( $value ) ) ) . '">';
 	}
 }
 
 /**
- * Apply collection + product_cat filters via WooCommerce product query.
+ * Apply product_cat filter via WooCommerce product query (collection uses taxonomy archives).
  *
  * @param array $tax_query Tax query clauses.
  * @return array
@@ -190,18 +243,6 @@ function zarsa_shop_archive_filter_tax_query( $tax_query ) {
 
 	if ( ! is_array( $tax_query ) ) {
 		$tax_query = array();
-	}
-
-	if ( is_shop() && ! empty( $_GET['collection'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$slug = sanitize_title( wp_unslash( $_GET['collection'] ) );
-		$term = get_term_by( 'slug', $slug, 'collection' );
-		if ( $term && ! is_wp_error( $term ) ) {
-			$tax_query[] = array(
-				'taxonomy' => 'collection',
-				'field'    => 'slug',
-				'terms'    => array( $slug ),
-			);
-		}
 	}
 
 	if ( ! empty( $_GET['product_cat'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -219,6 +260,82 @@ function zarsa_shop_archive_filter_tax_query( $tax_query ) {
 	return $tax_query;
 }
 add_filter( 'woocommerce_product_query_tax_query', 'zarsa_shop_archive_filter_tax_query', 20 );
+
+/**
+ * Redirect deprecated ?collection= URLs and strip empty/malformed filter query strings.
+ */
+function zarsa_shop_filter_canonical_redirects() {
+	if ( is_admin() || wp_doing_ajax() ) {
+		return;
+	}
+
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$has_collection_param = isset( $_GET['collection'] );
+	$collection_slug      = '';
+
+	if ( $has_collection_param ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$collection_slug = sanitize_title( wp_unslash( $_GET['collection'] ) );
+	}
+
+	$filter_params = zarsa_shop_filter_request_params();
+	$needs_cleanup = $has_collection_param;
+
+	if ( ! $needs_cleanup && ( is_shop() || is_tax( 'collection' ) ) ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		foreach ( array_merge( zarsa_shop_filter_query_keys(), array( 'paged' ) ) as $key ) {
+			if ( isset( $_GET[ $key ] ) && '' === (string) wp_unslash( $_GET[ $key ] ) ) {
+				$needs_cleanup = true;
+				break;
+			}
+		}
+	}
+
+	if ( ! $needs_cleanup ) {
+		return;
+	}
+
+	if ( $has_collection_param ) {
+		if ( '' !== $collection_slug ) {
+			$term = get_term_by( 'slug', $collection_slug, 'collection' );
+			if ( $term && ! is_wp_error( $term ) ) {
+				$destination = get_term_link( $term );
+				if ( ! is_wp_error( $destination ) ) {
+					wp_safe_redirect( zarsa_shop_filter_build_url( $destination, $filter_params ), 301 );
+					exit;
+				}
+			}
+		}
+
+		if ( function_exists( 'wc_get_page_permalink' ) ) {
+			$shop_url = wc_get_page_permalink( 'shop' );
+			if ( $shop_url ) {
+				wp_safe_redirect( zarsa_shop_filter_build_url( $shop_url, $filter_params ), 301 );
+				exit;
+			}
+		}
+
+		return;
+	}
+
+	if ( is_tax( 'collection' ) ) {
+		$term = get_queried_object();
+		if ( $term instanceof WP_Term ) {
+			$destination = get_term_link( $term );
+			if ( ! is_wp_error( $destination ) ) {
+				wp_safe_redirect( zarsa_shop_filter_build_url( $destination, $filter_params ), 301 );
+				exit;
+			}
+		}
+	} elseif ( is_shop() && function_exists( 'wc_get_page_permalink' ) ) {
+		$shop_url = wc_get_page_permalink( 'shop' );
+		if ( $shop_url ) {
+			wp_safe_redirect( zarsa_shop_filter_build_url( $shop_url, $filter_params ), 301 );
+			exit;
+		}
+	}
+}
+add_action( 'template_redirect', 'zarsa_shop_filter_canonical_redirects', 1 );
 
 /**
  * Shop / collection archive filter bar script.
@@ -383,6 +500,24 @@ function zarsa_enqueue_assets() {
 
 }
 add_action('wp_enqueue_scripts', 'zarsa_enqueue_assets');
+
+/**
+ * PDP gallery: thumbnail click swaps main image (vanilla JS).
+ */
+function zarsa_enqueue_product_gallery() {
+	if ( ! function_exists( 'is_product' ) || ! is_product() ) {
+		return;
+	}
+
+	wp_enqueue_script(
+		'zarsa-product-gallery',
+		get_template_directory_uri() . '/assets/js/product-gallery.js',
+		array(),
+		'1.0.0',
+		true
+	);
+}
+add_action( 'wp_enqueue_scripts', 'zarsa_enqueue_product_gallery' );
 
 add_filter('woocommerce_currency_symbol', function($currency_symbol, $currency) {
     if ($currency === 'AED') {

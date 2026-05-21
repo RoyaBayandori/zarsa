@@ -4,45 +4,64 @@
     return;
   }
 
-  const collectionSelect = form.querySelector('select[name="collection"]');
+  const collectionSelect = form.querySelector('#shop-filter-collection');
+  const archiveBase = form.dataset.archiveBase || '/collection/';
+  const shopUrl = form.dataset.shopUrl || '/shop/';
 
-  if (collectionSelect && collectionSelect.dataset.collectionNav === '1') {
+  function pruneParams(params) {
+    params.delete('collection');
+    params.delete('paged');
+
+    params.forEach(function (value, key) {
+      if (!value) {
+        params.delete(key);
+      }
+    });
+
+    return params;
+  }
+
+  function buildQuery() {
+    return pruneParams(new URLSearchParams(new FormData(form))).toString();
+  }
+
+  function currentPath() {
+    return window.location.pathname.replace(/\/page\/\d+\/?$/, '/');
+  }
+
+  function navigate(url) {
+    window.location.assign(url);
+  }
+
+  if (collectionSelect) {
     collectionSelect.addEventListener('change', function () {
       const slug = this.value;
-      const base = collectionSelect.dataset.archiveBase || '/collection/';
+      const query = buildQuery();
 
       if (!slug) {
-        const shopUrl = form.dataset.shopUrl;
-        const params = new URLSearchParams(new FormData(form));
-        params.delete('collection');
-        const query = params.toString();
-
-        if (shopUrl) {
-          window.location.assign(shopUrl + (query ? '?' + query : ''));
-          return;
-        }
-
-        form.submit();
+        navigate(shopUrl + (query ? '?' + query : ''));
         return;
       }
 
-      const params = new URLSearchParams(new FormData(form));
-      params.delete('collection');
-
-      const query = params.toString();
-      const url = base + slug + '/' + (query ? '?' + query : '');
-
-      window.location.assign(url);
+      const base = archiveBase.endsWith('/') ? archiveBase : archiveBase + '/';
+      navigate(base + slug + '/' + (query ? '?' + query : ''));
     });
   }
 
   form.querySelectorAll('.shop-filter-select').forEach(function (select) {
-    if (select === collectionSelect && collectionSelect.dataset.collectionNav === '1') {
+    if (select === collectionSelect) {
       return;
     }
 
     select.addEventListener('change', function () {
-      form.submit();
+      const query = buildQuery();
+      navigate(currentPath() + (query ? '?' + query : ''));
     });
+  });
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const query = buildQuery();
+    navigate(currentPath() + (query ? '?' + query : ''));
   });
 })();

@@ -5,9 +5,8 @@ if ( ! function_exists( 'is_shop' ) || ! ( is_shop() || is_tax( 'collection' ) )
 	return;
 }
 
-$active           = zarsa_shop_filter_active_values();
-$is_collection_tax = is_tax( 'collection' );
-$material_key     = zarsa_shop_filter_attribute_query_key( 'material' );
+$active       = zarsa_shop_filter_active_values();
+$material_key = zarsa_shop_filter_attribute_query_key( 'material' );
 $stone_key        = zarsa_shop_filter_attribute_query_key( 'stone' );
 $material_tax     = wc_attribute_taxonomy_name( 'material' );
 $stone_tax        = wc_attribute_taxonomy_name( 'stone' );
@@ -58,6 +57,7 @@ if ( is_wp_error( $stones ) ) {
 }
 
 $collection_archive_base = trailingslashit( home_url( '/collection' ) );
+$shop_url              = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/shop/' );
 ?>
 
 <div class="shop-filters">
@@ -65,9 +65,8 @@ $collection_archive_base = trailingslashit( home_url( '/collection' ) );
 		method="get"
 		class="shop-filters-form"
 		action=""
-		<?php if ( $is_collection_tax && function_exists( 'wc_get_page_permalink' ) ) : ?>
-			data-shop-url="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>"
-		<?php endif; ?>
+		data-archive-base="<?php echo esc_attr( $collection_archive_base ); ?>"
+		data-shop-url="<?php echo esc_url( trailingslashit( $shop_url ) ); ?>"
 	>
 
 		<?php zarsa_shop_filter_hidden_fields(); ?>
@@ -79,9 +78,8 @@ $collection_archive_base = trailingslashit( home_url( '/collection' ) );
 				<label class="shop-filter-label" for="shop-filter-collection"><?php esc_html_e( 'Collection', 'zarsa-theme' ); ?></label>
 				<select
 					id="shop-filter-collection"
-					name="collection"
-					class="shop-filter-select"
-					<?php echo $is_collection_tax ? ' data-collection-nav="1" data-archive-base="' . esc_attr( $collection_archive_base ) . '"' : ''; ?>
+					class="shop-filter-select shop-filter-select--collection"
+					data-collection-nav="1"
 				>
 					<option value=""><?php esc_html_e( 'All collections', 'zarsa-theme' ); ?></option>
 					<?php foreach ( $collections as $term ) : ?>
