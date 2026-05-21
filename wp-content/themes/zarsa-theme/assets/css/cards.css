@@ -49,14 +49,16 @@
   margin-bottom: 16px;
 }
 
-/* Shop / archive product cards — scoped to WooCommerce listing pages only */
+/* Shop / archive / collection taxonomy product cards */
 .woocommerce-shop .zarsa-product-card,
-.post-type-archive-product .zarsa-product-card {
+.post-type-archive-product .zarsa-product-card,
+body.tax-collection .zarsa-product-card {
   list-style: none;
 }
 
 .woocommerce-shop .zarsa-product-inner,
-.post-type-archive-product .zarsa-product-inner {
+.post-type-archive-product .zarsa-product-inner,
+body.tax-collection .zarsa-product-inner {
   background: rgba(255, 255, 255, 0.35);
   border-radius: 8px;
   overflow: hidden;
@@ -65,13 +67,15 @@
 }
 
 .woocommerce-shop .zarsa-product-inner:hover,
-.post-type-archive-product .zarsa-product-inner:hover {
+.post-type-archive-product .zarsa-product-inner:hover,
+body.tax-collection .zarsa-product-inner:hover {
   border: none;
   box-shadow: none;
 }
 
 .woocommerce-shop .zarsa-product-image,
-.post-type-archive-product .zarsa-product-image {
+.post-type-archive-product .zarsa-product-image,
+body.tax-collection .zarsa-product-image {
   position: relative;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.18);
@@ -79,14 +83,16 @@
 }
 
 .woocommerce-shop .zarsa-product-image a,
-.post-type-archive-product .zarsa-product-image a {
+.post-type-archive-product .zarsa-product-image a,
+body.tax-collection .zarsa-product-image a {
   display: block;
   width: 100%;
   height: 100%;
 }
 
 .woocommerce-shop .zarsa-product-image img,
-.post-type-archive-product .zarsa-product-image img {
+.post-type-archive-product .zarsa-product-image img,
+body.tax-collection .zarsa-product-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -94,13 +100,15 @@
 }
 
 .woocommerce-shop .zarsa-product-content,
-.post-type-archive-product .zarsa-product-content {
+.post-type-archive-product .zarsa-product-content,
+body.tax-collection .zarsa-product-content {
   padding: 30px 28px 36px;
   text-align: center;
 }
 
 .woocommerce-shop .zarsa-product-title,
-.post-type-archive-product .zarsa-product-title {
+.post-type-archive-product .zarsa-product-title,
+body.tax-collection .zarsa-product-title {
   font-size: 15px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -109,12 +117,14 @@
 }
 
 .woocommerce-shop .zarsa-product-title a,
-.post-type-archive-product .zarsa-product-title a {
+.post-type-archive-product .zarsa-product-title a,
+body.tax-collection .zarsa-product-title a {
   color: var(--zarsa-dark);
 }
 
 .woocommerce-shop .zarsa-product-price,
-.post-type-archive-product .zarsa-product-price {
+.post-type-archive-product .zarsa-product-price,
+body.tax-collection .zarsa-product-price {
   font-size: 13px;
   letter-spacing: 0.1em;
   color: var(--zarsa-text-soft);
@@ -122,7 +132,8 @@
 }
 
 .woocommerce-shop .zarsa-product-price .woocommerce-Price-amount,
-.post-type-archive-product .zarsa-product-price .woocommerce-Price-amount {
+.post-type-archive-product .zarsa-product-price .woocommerce-Price-amount,
+body.tax-collection .zarsa-product-price .woocommerce-Price-amount {
   color: var(--zarsa-text-soft);
 }
 
@@ -136,23 +147,27 @@
   }
 
   .woocommerce-shop .zarsa-product-image,
-  .post-type-archive-product .zarsa-product-image {
+  .post-type-archive-product .zarsa-product-image,
+  body.tax-collection .zarsa-product-image {
     aspect-ratio: var(--image-aspect-card-mobile);
   }
 
   .woocommerce-shop .zarsa-product-content,
-  .post-type-archive-product .zarsa-product-content {
+  .post-type-archive-product .zarsa-product-content,
+  body.tax-collection .zarsa-product-content {
     padding: 24px 22px 28px;
   }
 
   .woocommerce-shop .zarsa-product-title,
-  .post-type-archive-product .zarsa-product-title {
+  .post-type-archive-product .zarsa-product-title,
+  body.tax-collection .zarsa-product-title {
     font-size: 0.875rem;
     letter-spacing: 0.06em;
   }
 
   .woocommerce-shop .zarsa-product-price,
-  .post-type-archive-product .zarsa-product-price {
+  .post-type-archive-product .zarsa-product-price,
+  body.tax-collection .zarsa-product-price {
     font-size: 0.75rem;
     letter-spacing: 0.08em;
     font-weight: 500;
